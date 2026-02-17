@@ -244,6 +244,20 @@ footer {
 
 /* Loader override for Emulator JS if possible via CSS targeting iframe? usually not allowed cross-origin but here same origin might apply if embedded directly. */
 
+/* Fix Fullscreen EJS behavior to cover screen properly */
+#game {
+    width: 100% !important;
+    height: 100% !important;
+    max-width: 100% !important;
+    max-height: 100% !important;
+}
+/* EJS creates an iframe, target it too */
+#game iframe {
+    width: 100% !important;
+    height: 100% !important;
+    border: none !important;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   header h1 {

@@ -67,6 +67,10 @@ function loadGame(game) {
     window.EJS_player = '#game';
     window.EJS_core = 'gba';
     
+    // Better fullscreen experience
+    window.EJS_backgroundColor = '#000000'; 
+    window.EJS_biosUrl = ''; 
+    
     if (game.blobUrl) {
         window.EJS_gameUrl = game.blobUrl;
     } else {
@@ -79,6 +83,17 @@ function loadGame(game) {
     // Speed / Fast Forward Setup
     // EmulatorJS automatically handles mobile touch controls.
     
+    // Prevent arrow keys from scrolling the page
+    // Using capture phase to be more aggressive
+    window.addEventListener("keydown", function(e) {
+        // keys: 32=space, 37=left, 38=up, 39=right, 40=down
+        if(e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
+            if([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
+                e.preventDefault();
+            }
+        }
+    }, { capture: true, passive: false });
+
     // Remove old script if exists
     const oldScript = document.getElementById('emulator-script');
     if (oldScript) oldScript.remove();
@@ -92,6 +107,25 @@ function loadGame(game) {
     
     // Scroll to game
     container.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    
+    // Focus the game container so keyboard inputs go there immediately
+    // Wait slightly for iframe to spawn
+    setTimeout(() => {
+        const gameContainer = document.getElementById('game-container');
+        if(gameContainer) {
+             gameContainer.tabIndex = 0; // Make focusable
+             gameContainer.focus();
+             // Focus the iframe if possible
+             const iframe = gameContainer.querySelector('iframe');
+             if(iframe) iframe.focus();
+             
+             // Additional click listener to steal focus back
+             gameContainer.addEventListener('click', () => {
+                 gameContainer.focus();
+                 if(iframe) iframe.focus();
+             });
+        }
+    }, 1000);
     
     // Show controls hint
     showControlsHint();
