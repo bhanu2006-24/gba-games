@@ -1,0 +1,230 @@
+/* Global Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Inter", sans-serif;
+  color: #e0e0e0;
+  background: radial-gradient(
+    circle at 50% -20%,
+    #4a148c 0%,
+    #1a0b2e 50%,
+    #0d0d1a 100%
+  );
+  min-height: 100vh;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* App Container */
+.app-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+/* Header */
+header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+header h1 {
+  font-family: "Press Start 2P", cursive;
+  color: #fff;
+  font-size: 2.5rem;
+  text-transform: uppercase;
+  text-shadow:
+    0 0 10px rgba(138, 43, 226, 0.8),
+    0 0 20px rgba(138, 43, 226, 0.4);
+  letter-spacing: 2px;
+}
+
+.highlight {
+  color: #bc13fe;
+}
+
+header p {
+  margin-top: 1rem;
+  color: #a3a3a3;
+  font-size: 1.1rem;
+}
+
+/* Main Layout */
+main {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  align-items: center;
+}
+
+/* Emulator Section */
+.emulator-section {
+  width: 100%;
+  max-width: 800px;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+#game-container {
+  width: 100%;
+  aspect-ratio: 4 / 3; /* Typical GBA aspect ratio is approx 3:2, but 4:3 is safer for web */
+  /* Wait, GBA is 240x160 -> 3:2. Let's adjust for optimal. */
+  /* Most emulators scale well. */
+  background: #000;
+  border-radius: 12px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Placeholder inside emulator before load */
+.placeholder-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  text-align: center;
+  height: 100%;
+  width: 100%;
+  background: linear-gradient(135deg, #1f1f1f 0%, #2a2a2a 100%);
+}
+
+.placeholder-content .icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.placeholder-content h2 {
+  font-family: "Press Start 2P", cursive;
+  font-size: 1.2rem;
+  color: #bc13fe;
+  margin-bottom: 0.5rem;
+}
+
+.placeholder-content p {
+  font-size: 0.9rem;
+  color: #888;
+}
+
+/* Game Selection List */
+.games-list-section {
+  width: 100%;
+  max-width: 1000px;
+}
+
+.games-list-section h2 {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid rgba(188, 19, 254, 0.3);
+  padding-bottom: 0.5rem;
+  display: inline-block;
+  color: #ddd;
+}
+
+.games-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Game Card */
+.game-card {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  position: relative;
+  overflow: hidden;
+}
+
+.game-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(188, 19, 254, 0.2);
+  border-color: rgba(188, 19, 254, 0.5);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.game-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px; /* Purple strip on left */
+  height: 100%;
+  background: #bc13fe;
+  transform: scaleY(0);
+  transition: transform 0.3s ease;
+  transform-origin: bottom;
+}
+
+.game-card:hover::before {
+  transform: scaleY(1);
+}
+
+.game-title {
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #fff;
+  margin-bottom: 0.5rem;
+}
+
+.game-meta {
+  font-size: 0.85rem;
+  color: #aaa;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.game-icon {
+  font-size: 1.2rem;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  margin-top: 3rem;
+  color: #666;
+  font-size: 0.9rem;
+  padding-bottom: 2rem;
+}
+
+/* Loader override for Emulator JS if possible via CSS targeting iframe? usually not allowed cross-origin but here same origin might apply if embedded directly. */
+
+/* Responsive */
+@media (max-width: 768px) {
+  header h1 {
+    font-size: 1.8rem;
+  }
+
+  .games-grid {
+    grid-template-columns: 1fr; /* Stack on mobile */
+  }
+}

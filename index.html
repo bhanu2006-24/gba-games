@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GBA Webcade - Retro Gaming</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="app-container">
+      <header>
+        <h1><span class="highlight">GBA</span> Webcade</h1>
+        <p>Select a game to start playing instantly</p>
+      </header>
+
+      <main>
+        <!-- Game Display Area -->
+        <section class="emulator-section">
+          <div id="game-container">
+            <div class="placeholder-screen">
+              <div class="placeholder-content">
+                <div class="icon">🎮</div>
+                <h2>Ready to Play?</h2>
+                <p>Select a ROM from the list to launch the emulator.</p>
+              </div>
+            </div>
+          </div>
+          <!-- Controls Hint -->
+          <div id="controls-hint" class="controls-hint" style="display: none; padding: 10px; text-align: center; color: #aaa; background: rgba(0,0,0,0.5); border-radius: 0 0 10px 10px; font-size: 0.9em;"></div>
+        </section>
+
+        <!-- Game Selection List -->
+        <section class="games-list-section">
+          <h2>Available Games</h2>
+          <div class="games-grid" id="games-grid">
+            <!-- Game cards will be injected here by JS -->
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        <p>Powered by EmulatorJS. Make sure your ROMs are legal backups.</p>
+      </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="games.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
