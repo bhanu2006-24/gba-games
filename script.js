@@ -83,17 +83,6 @@ function loadGame(game) {
     // Speed / Fast Forward Setup
     // EmulatorJS automatically handles mobile touch controls.
     
-    // Prevent arrow keys from scrolling the page
-    // Using capture phase to be more aggressive
-    window.addEventListener("keydown", function(e) {
-        // keys: 32=space, 37=left, 38=up, 39=right, 40=down
-        if(e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
-            if([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
-                e.preventDefault();
-            }
-        }
-    }, { capture: true, passive: false });
-
     // Remove old script if exists
     const oldScript = document.getElementById('emulator-script');
     if (oldScript) oldScript.remove();
@@ -102,6 +91,14 @@ function loadGame(game) {
     const script = document.createElement('script');
     script.src = `${EJS_PATH_TO_DATA}loader.js`;
     script.id = 'emulator-script';
+    script.async = true;
+    
+    script.onerror = function() {
+        console.error("EmulatorJS script failed to load.");
+        // Try fallback or just alert
+        const container = document.getElementById('game-container');
+        container.innerHTML = '<div class="placeholder-screen"><div class="placeholder-content"><h2>Error Loading Emulator</h2><p>Please check internet connection.</p></div></div>';
+    };
     
     document.body.appendChild(script);
     
@@ -160,6 +157,16 @@ function setupFileUpload() {
         loadGame(game);
     });
 }
+
+
+// Prevent scrolling globally for arrow keys and space (unless in input)
+window.addEventListener("keydown", function(e) {
+    if(e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
+        if([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
+            e.preventDefault();
+        }
+    }
+}, { capture: false, passive: false }); // Changed capture to false to match standard practice, maybe capture was too aggressive?
 
 // Initialize on load
 document.addEventListener('DOMContentLoaded', () => {
