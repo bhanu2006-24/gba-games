@@ -71,9 +71,7 @@ function loadGame(game) {
     window.EJS_startOnLoaded = true;
     
     // Speed / Fast Forward Setup
-    // EmulatorJS maps Fast Forward to a key. We can try to expose a button or instructions.
-    // Default fast forward key is usually Space or configurable. 
-    // Let's add an instruction about Fast Forward.
+    // EmulatorJS automatically handles mobile touch controls.
     
     // Remove old script if exists
     const oldScript = document.getElementById('emulator-script');
@@ -97,7 +95,7 @@ function showControlsHint() {
     const hint = document.getElementById('controls-hint');
     if(hint) {
         hint.style.display = 'block';
-        hint.textContent = "Controls: Arrow Keys = Move, Z = A, X = B, Enter = Start, Shift = Select. | Hold SPACE for Fast Forward!";
+        hint.innerHTML = "<b>Controls:</b> Arrow Keys = Move, Z = A, X = B, Enter = Start, Shift = Select.<br><b>Fast Forward:</b> Hold SPACE Spacebar.<br><b>Mobile:</b> Touch controls appear automatically.";
     }
 }
 

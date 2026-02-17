@@ -224,7 +224,30 @@ footer {
     font-size: 1.8rem;
   }
 
+  .app-container {
+    padding: 10px;
+    width: 100%;
+    gap: 1rem;
+  }
+
+  .emulator-section {
+    padding: 5px;
+    width: 100%;
+    max-width: 100%;
+    border-radius: 10px;
+  }
+
+  #game-container {
+    width: 100%;
+    /* Let the emulator handle the aspect ratio/height, but ensure minimums */
+    min-height: 250px;
+  }
+
   .games-grid {
     grid-template-columns: 1fr; /* Stack on mobile */
+  }
+
+  .placeholder-content .icon {
+    font-size: 3rem;
   }
 }
