@@ -132,7 +132,7 @@ function showControlsHint() {
     const hint = document.getElementById('controls-hint');
     if(hint) {
         hint.style.display = 'block';
-        hint.innerHTML = "<b>Controls:</b> Arrow Keys = Move, Z = A, X = B, Enter = Start, Shift = Select.<br><b>Fast Forward:</b> Hold SPACE Spacebar.<br><b>Mobile:</b> Touch controls appear automatically.";
+        hint.innerHTML = "<b>Controls:</b> Arrow Keys = Move, Z = A, X = B, Enter = Start, Shift = Select.<br><b>Fast Forward:</b> Hold SPACE Spacebar.<br><b>Mobile:</b> Play on Full Screen To be Better.";
     }
 }
 
