@@ -66,7 +66,13 @@ function loadGame(game) {
     // Configure EmulatorJS
     window.EJS_player = '#game';
     window.EJS_core = 'gba';
-    window.EJS_gameUrl = `roms/${encodeURIComponent(game.filename)}`; 
+    
+    if (game.blobUrl) {
+        window.EJS_gameUrl = game.blobUrl;
+    } else {
+        window.EJS_gameUrl = `roms/${encodeURIComponent(game.filename)}`; 
+    }
+    
     window.EJS_pathtodata = "https://cdn.jsdelivr.net/gh/ethanaobrien/emulatorjs@main/data/";
     window.EJS_startOnLoaded = true;
     
@@ -99,5 +105,30 @@ function showControlsHint() {
     }
 }
 
+function setupFileUpload() {
+    const fileInput = document.getElementById('file-upload');
+    if (!fileInput) return;
+    
+    fileInput.addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (!file) return;
+
+        // Create a blob URL for the local file
+        const blobUrl = URL.createObjectURL(file);
+        
+        const game = {
+            title: file.name.replace(/\.(zip|gba|gbc|gb)$/i, ''),
+            filename: file.name,
+            description: "Custom Upload",
+            blobUrl: blobUrl
+        };
+        
+        loadGame(game);
+    });
+}
+
 // Initialize on load
-document.addEventListener('DOMContentLoaded', initGameList);
+document.addEventListener('DOMContentLoaded', () => {
+    initGameList();
+    setupFileUpload();
+});

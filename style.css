@@ -29,6 +29,32 @@ body {
   gap: 2rem;
 }
 
+/* Upload Button */
+.custom-file-upload {
+    display: inline-block;
+    padding: 12px 24px;
+    cursor: pointer;
+    background: linear-gradient(135deg, #bc13fe 0%, #8a2be2 100%);
+    border-radius: 30px;
+    color: white;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 15px rgba(188, 19, 254, 0.4);
+    margin-bottom: 20px;
+}
+
+.custom-file-upload:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(188, 19, 254, 0.6);
+    background: linear-gradient(135deg, #d54eff 0%, #9d4eff 100%);
+}
+
+.custom-file-upload:active {
+    transform: translateY(1px);
+}
+
 /* Header */
 header {
   text-align: center;
