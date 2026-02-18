@@ -2,7 +2,10 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
     <title>GBA Webcade - Retro Gaming</title>
 
     <!-- Google Fonts -->
@@ -21,12 +24,17 @@
       <header>
         <h1><span class="highlight">GBA</span> Webcade</h1>
         <p>Select a game to start playing instantly</p>
-        
-        <div class="upload-container" style="margin-top: 1.5rem;">
-            <label for="file-upload" class="custom-file-upload">
-                📂 Upload Your Own ROM (.gba, .zip)
-            </label>
-            <input id="file-upload" type="file" accept=".gba,.zip,.gbc,.gb" style="display: none;" />
+
+        <div class="upload-container" style="margin-top: 1.5rem">
+          <label for="file-upload" class="custom-file-upload">
+            📂 Upload Your Own ROM (.gba, .zip)
+          </label>
+          <input
+            id="file-upload"
+            type="file"
+            accept=".gba,.zip,.gbc,.gb"
+            style="display: none"
+          />
         </div>
       </header>
 
@@ -42,8 +50,21 @@
               </div>
             </div>
           </div>
-          <!-- Controls Hint -->
-          <div id="controls-hint" class="controls-hint" style="display: none; padding: 10px; text-align: center; color: #aaa; background: rgba(0,0,0,0.5); border-radius: 0 0 10px 10px; font-size: 0.9em;"></div>
+          <!-- Game Controls Bar -->
+          <div class="game-controls-bar">
+            <button
+              id="fullscreen-btn"
+              class="control-btn"
+              onclick="toggleFullscreen()"
+            >
+              ⛶ Fullscreen
+            </button>
+            <div
+              id="controls-hint"
+              class="controls-hint"
+              style="display: none"
+            ></div>
+          </div>
         </section>
 
         <!-- Game Selection List -->

@@ -128,13 +128,7 @@ function loadGame(game) {
     showControlsHint();
 }
 
-function showControlsHint() {
-    const hint = document.getElementById('controls-hint');
-    if(hint) {
-        hint.style.display = 'block';
-        hint.innerHTML = "<b>Controls:</b> Arrow Keys = Move, Z = A, X = B, Enter = Start, Shift = Select.<br><b>Fast Forward:</b> Hold SPACE Spacebar.<br><b>Mobile:</b> Play on Full Screen To be Better.";
-    }
-}
+
 
 function setupFileUpload() {
     const fileInput = document.getElementById('file-upload');
@@ -166,7 +160,43 @@ window.addEventListener("keydown", function(e) {
             e.preventDefault();
         }
     }
-}, { capture: false, passive: false }); // Changed capture to false to match standard practice, maybe capture was too aggressive?
+}, { capture: false, passive: false });
+
+function toggleFullscreen() {
+    const gameContainer = document.getElementById('game-container');
+    
+    if (!document.fullscreenElement) {
+        if (gameContainer.requestFullscreen) {
+            gameContainer.requestFullscreen();
+        } else if (gameContainer.mozRequestFullScreen) { /* Firefox */
+            gameContainer.mozRequestFullScreen();
+        } else if (gameContainer.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
+            gameContainer.webkitRequestFullscreen();
+        } else if (gameContainer.msRequestFullscreen) { /* IE/Edge */
+            gameContainer.msRequestFullscreen();
+        }
+    } else {
+        if (document.exitFullscreen) {
+            document.exitFullscreen();
+        } else if (document.mozCancelFullScreen) {
+            document.mozCancelFullScreen();
+        } else if (document.webkitExitFullscreen) {
+            document.webkitExitFullscreen();
+        } else if (document.msExitFullscreen) {
+            document.msExitFullscreen();
+        }
+    }
+}
+
+// Update Controls Hint to only show what is necessary
+function showControlsHint() {
+    const hint = document.getElementById('controls-hint');
+    if(hint) {
+        hint.style.display = 'block';
+        // Simpler text for the new layout
+        hint.innerHTML = "<span>Move: <b>Arrows</b></span> | <span>A: <b>Z</b></span> | <span>B: <b>X</b></span> | <span>Start: <b>Enter</b></span> | <span>Select: <b>Shift</b></span> | <span>FF: <b>Space</b></span>";
+    }
+}
 
 // Initialize on load
 document.addEventListener('DOMContentLoaded', () => {
