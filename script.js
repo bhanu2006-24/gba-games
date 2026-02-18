@@ -153,14 +153,29 @@ function setupFileUpload() {
 }
 
 
-// Prevent scrolling globally for arrow keys and space (unless in input)
+// Global key listener to handle focus and prevent scrolling
 window.addEventListener("keydown", function(e) {
-    if(e.target.tagName !== 'INPUT' && e.target.tagName !== 'TEXTAREA') {
-        if([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
-            e.preventDefault();
+    // Allow inputs to work restricted
+    if(e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+    // Keys that should trigger game focus and prevent scrolling
+    // 32=Space, 37=Left, 38=Up, 39=Right, 40=Down, 13=Enter, 16=Shift, 90=Z, 88=X
+    const gameKeyCodes = [32, 37, 38, 39, 40, 13, 16, 90, 88];
+    
+    if(gameKeyCodes.indexOf(e.keyCode) > -1) {
+        // Prevent default browser scrolling/actions for these keys
+        e.preventDefault();
+        
+        // Aggressively attempt to focus the emulator iframe
+        const gameContainer = document.getElementById('game-container');
+        if (gameContainer) {
+            const iframe = gameContainer.querySelector('iframe');
+            if (iframe && document.activeElement !== iframe) {
+                iframe.focus();
+            }
         }
     }
-}, { capture: false, passive: false });
+}, { capture: true, passive: false }); // Use capture true to catch it early
 
 function toggleFullscreen() {
     const gameContainer = document.getElementById('game-container');
@@ -186,6 +201,12 @@ function toggleFullscreen() {
             document.msExitFullscreen();
         }
     }
+    
+    // Force focus back to game after toggle attempt
+    setTimeout(() => {
+        const iframe = gameContainer.querySelector('iframe');
+        if (iframe) iframe.focus();
+    }, 100);
 }
 
 // Update Controls Hint to only show what is necessary
